@@ -47,7 +47,7 @@ class C_imagesetting_testcase(aImagesetting.C_aImagsSetting, Verify_ImageSetting
                 logwrite.write(nowprint+'light_change_Falied'+'\n')
     def constrast (self,value):
         self.wait()
-        self.find_element(*self.lightnesscontrast_value_loc).send_keys(Keys.CONTROL,'a')
+        self.find_element(*self.contrast_value_loc).send_keys(Keys.CONTROL,'a')
         self.wait()
         self.find_element(*self.contrast_value_loc).send_keys(value,Keys.ENTER)
         self.wait()

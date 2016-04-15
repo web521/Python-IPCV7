@@ -18,7 +18,7 @@ class C_aImagsSetting(PubAction.C_ipcpage):
         self.wait()
         self.aImagsSettings()
         
-    def exposureh5(self):
+    def exposureh5(self): 
         self.wait()
         self.aImagsSettings()
         
