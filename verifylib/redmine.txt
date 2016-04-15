@@ -1,0 +1,43 @@
+'''
+视频参数（MulVidSrc":[[{"EncType":0,"RcMode":0,"FrameRate":10,"VidWide":1920,"VidHeight":1080,"BitRate":4096,"MaxKeyRate":75,"EncQuality":3,"H264ProfiledId":0}）
+网络---有线网络---IP及子网掩码："Ipv4AddrParam":[{"Ipv4Addr":"10.255.248.223","Ipv4SubNetMask":"255.255.255.0"},
+                    DNS及网关："Ipv4FirstDns":"0.0.0.0","Ipv4SecondDns":"0.0.0.0","Ipv4GatWay":"10.255.248.254",
+                    DHCP开关："Ipv4DhcpEnable":0,"Ipv4Num":1,"Ipv4DnsAuto":0,
+            端口信息："PortParam":{"HttpPort":80,"RtspPort":554,"HttpsPort":5544},
+
+        接入协议  注册平台IP"KedaSnmpServerIp":{"IpType":2,"IpAddr":"10.255.248.92"}},
+                      端口{"MaPEnable":1,"ProtoType":0,"ProtocalName":"SDK","OutPort":0,"InPort":5510}]},
+    其他协议---DDNS："DDNSParam":{"Enable":0,"DdnsType":0,"UserName":"admin","Password":"admin","DdnsDomain":""},
+            PPPoE："PPPOEParam":{"Enable":0,"AutoDialEnable":1,
+            K-SNMP："KedaSnmpServerIp":{"IpType":2,"IpAddr":"10.255.248.92"}},
+            802.1x："8021xParam":{"Enable":0,"ProtocolType":0,
+            Qos："QOSParam":{"VidAudDscp":0,"AlarmDscp":0,"ManageDscp":0},
+            UpnP："UPNPParam":{"Enable":1,"Alias":"IPC121-Ei7N-X1000014100F6807"
+                  "UpnpMapParam":[{"MaPEnable":1,"ProtoType":0,"ProtocalName":"HTTP","OutPort":0,"InPort":80},
+            SMTP："Smtp":{"SmtpDomain":"","UserName":"","UserPassWord":"",
+                    "SenderEmail":"","SenderName":"","ReciverEmail":"",
+                    "RecciverName":"","RecEmail":["","","","","",""],
+                    "RecName":["","","","","",""],"ReciverNum":0,
+                    "SmtpPort":25,"Subject":"IPCMail","SubjectLen":14,
+                    "SenderNmLen":0,"SSL":0,"Login":1,"Attachment":0,"FileType":0}
+摄像机---图像---图像调节 亮度："Brightness":46,
+                        对比度："Contrast":47,
+                        锐度："Sharpness":49,
+                        饱和度"Saturation":48
+                        增益："GainMode":1
+                        增益上限："GainMax":51
+                        光圈灵敏度："IrisSensitivety":77
+                        快门：
+                        快门下限：
+                        防闪烁：
+                        白平衡：
+                        日夜转换：DayNightFilterMode
+                         灵敏度：DayToNightSensityLevel
+                         日夜转换等待时间：DayToNightDelayTime
+                         日夜转换阈值：DayToNightThresholdValue
+                        图像增强：
+                         3D降噪模式：
+                         3D降噪：
+                         动态调节：
+                         图像增强：
+'''
