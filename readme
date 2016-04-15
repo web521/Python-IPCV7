@@ -1,0 +1,31 @@
+SVN:https://10.255.248.20:8443/svn/Python/IPCtestV7
+wuweibin/wuweibin
+1.install python-3.4.16490.1437702276.msi
+2.pip install -U selenium
+3.pip install -U xlrd
+4.python -m pip install --upgrade pip
+5.ssh 2.7
+error: Microsoft Visual C++ 9.0 is required
+https://www.microsoft.com/en-us/download/confirmation.aspx?id=44266  下载Microsoft Visual C++ Compiler for Python 2.7
+pip install -U pycrypto
+pip install -U paramiko
+
+
+
+
+ssh 3.4
+一、准备工作
+Python中使用SSH需要用到OpenSSH，而OpenSSH依赖于paramiko模块，而paramiko模块又依赖于pycrypto模块，因此要在Python中使用SSH，则需要先安装模块顺序是：pycrypto -> paramiko
+
+1.PyCrypto下载地址：
+https://github.com/axper/python3-pycrypto-windows-installer
+
+2.paramiko下载地址：
+https://github.com/paramiko/paramiko/archive/master.zip
+> 二、安装步骤
+
+1.PyCrypto的安装比较简单，下一步下一步，即可！
+
+2. paramiko  （进入根目录）
+
+输入下面的命令： python setup.py install
