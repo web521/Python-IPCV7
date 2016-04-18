@@ -20,11 +20,13 @@ logwrite.write(nowprint+'PubACtiond调用时间：'+'\n')
 print nowprint
 
 class C_ipcaction(object):
+    def wait(self):
+        t.sleep(1.5)
     #def __init__ (self,driver):
     #   self.driver = driver
     def open_firefox(self):
-        self.profileDir="C:/Users/Administrator/AppData/Roaming/Mozilla/Firefox/Profiles/ivjlfm23.default"
-        #self.profileDir="C:/Users/admin/AppData/Roaming/Mozilla/Firefox/Profiles/d68dofkn.default"
+        #self.profileDir="C:/Users/Administrator/AppData/Roaming/Mozilla/Firefox/Profiles/ivjlfm23.default"
+        self.profileDir="C:/Users/admin/AppData/Roaming/Mozilla/Firefox/Profiles/d68dofkn.default"
         self.profile=webdriver.FirefoxProfile(self.profileDir)
         self.driver=webdriver.Firefox(self.profile)
         self.driver.maximize_window()
@@ -78,10 +80,13 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
     exposureh5_loc=(By.ID,"exposureh5") ##曝光
     GainMode_loc=(By.ID,"GainMode") ##增益 auto，manual
     gainmax_value_loc=(By.ID,"gainmax_value") ##增益上限0~100
+    gainlevel_value_loc=(By.ID,"gainlevel_value")
     IrisType_loc=(By.ID,"IrisType") ##光圈模式dc_irisauto DC-IRIS自动，dc_irismanual DC-IRIS手动，p_irismanual P-IRIS手动
     irislevel_value_loc=(By.ID,"irislevel_value") ##光圈灵敏值 1~100
-    ShuterMode_loc=(By.ID,"ShuterMode_") ##快门模式：快门值auto 自动，manual 手动
+    irissize_value_loc=(By.ID,"irissize_value")
+    ShuterMode_loc=(By.ID,"ShuterMode") ##快门模式：快门值auto 自动，manual 手动
     Shutermin_loc=(By.ID,"Shutermin") ##快门下限：1/1，1/2,1/7.5，1/10,1/15,1/25,1/50,1/100,1/150,1/200,1/240,1/480,1/960,1/1024,1/2000,1/4000,1/8000,1/16000,1/30000
+    Shutterlevel_loc=(By.ID,"Shutterlevel")
     AntiFlickerMode_loc=(By.ID,"AntiFlickerMode") ##防闪烁 50hz，60hz，auto 自然光
     whiteblanceh5_loc=(By.ID,"whiteblanceh5") ##白平衡按钮
     WhiteBalance_loc=(By.ID,"whiteblanceh5") ##白平衡选择框  manual 手动白平衡，auto1 自动白平衡1，auto2 自动白平衡2，lock 锁定白平衡，fluorescentlight 日光灯，filamentlight 白炽灯，warmlight 暖光灯，natural 自然光
@@ -118,8 +123,7 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
     ##实时浏览页面对象定位
     capture_loc=(By.ID,'capture')
 
-    def wait(self):
-        t.sleep(0.5)
+
 
     def typeUsername_password(self,username,password):
         self.wait()

@@ -14,15 +14,18 @@ daynight_list = []
 light_list = []
 contrast_list = []
 saturation_list = []
-sharpnes_list = []
+sharpness_list = []
 exposureh5_list = []
-GainMode_list = []
-gainmax_list = []
-IrisType_list = []
-irislevel_list = []
-ShuterMode_list = []
-Shutermin_list = []
-AntiFlickerMode_list = []
+GainMode_list = []  ##增益模式
+gainmax_value_list = []  ##自动--增益上限
+gainlevel_value_list = []  ##手动---增益等级
+IrisType_list = []  ##光圈模式
+irislevel_value_list = []  ##自动---光圈灵敏度
+irissize_value_list = []  ##手动---光圈大小
+ShuterMode_list = [] ##快门模式
+Shutermin_list = []  ##自动---快门下限
+Shutterlevel_list = []  ##手动---快门等级
+AntiFlickerMode_list = []  ##防闪烁
 #处理
 try:
     sheet = opensheet.sheet_by_name("message")
@@ -76,18 +79,21 @@ daynight_list = getdata(1)
 light_list = getdata(2)
 contrast_list = getdata(3)
 saturation_list = getdata(4)
-sharpnes_list = getdata(5)
-GainMode_list = getdata(6)
-gainmax_list = getdata(7)
-IrisType_list = getdata(8)
-irislevel_list = getdata(9)
-ShuterMode_list = getdata(10)
-Shutermin_list = getdata(11)
-AntiFlickerMode_list = getdata(12)
+sharpness_list = getdata(5)
+GainMode_list = getdata(6)  ##增益模式
+gainmax_value_list = getdata(7)  ##自动--增益上限
+gainlevel_value_list = getdata(8)  ##手动---增益等级
+IrisType_list = getdata(9)  ##光圈模式
+irislevel_value_list = getdata(10)  ##自动---光圈灵敏度
+irissize_value_list = getdata(11)  ##手动---光圈大小
+ShuterMode_list = getdata(12) ##快门模式
+Shutermin_list = getdata(13)  ##自动---快门下限
+Shutterlevel_list = getdata(14)  ##手动---快门等级
+AntiFlickerMode_list = getdata(15)  ##防闪烁
 if __name__ =='__main__':
-    print daynight_list
-    print light_list
-    print contrast_list
-    print saturation_list
-    print AntiFlickerMode_list
-    print Shutermin_list 
+    #print daynight_list
+   # print light_list
+    #print contrast_list
+    print GainMode_list
+    #print AntiFlickerMode_list
+    #print Shutermin_list 

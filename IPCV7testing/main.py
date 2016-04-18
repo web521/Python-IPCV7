@@ -32,6 +32,19 @@ class C_IPCtest(unittest.TestCase, Testcase_ImageSetting.C_imagesetting_testcase
     def test_01(self):
         #self.ircutchange_case()
         self.lightchange_case()
+        self.contrastchange_case()
+        self.saturationchange_case()
+        self.sharpnesschange_case()
+        self.GainModechange_case()
+        self.gainmax_value_case()
+        #self.gainlevel_value_case()
+        self.IrisTypechange_case()
+        self.irislevel_value_case()
+        #self.irissize_value_case()
+        self.ShuterModechange_case()
+        self.Shutermin_case()
+        #self.Shutterlevel_case()
+        self.AntiFlickerMode_case()
     #def test_02(self):
         #self.lightchange_case()
         #两个测试用例时每次都会执行setUP和tearDown

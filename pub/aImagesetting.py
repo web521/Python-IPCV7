@@ -20,8 +20,10 @@ class C_aImagsSetting(PubAction.C_ipcpage):
         
     def exposureh5(self): 
         self.wait()
-        self.aImagsSettings()
-        
+        #self.aImagsSettings()
+        self.clickID(*self.exposureh5_loc)
+        self.logtext(*self.exposureh5_loc)
+
     def ircut(self):
         self.aImagsSettings()
         self.wait()
