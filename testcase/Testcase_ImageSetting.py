@@ -38,6 +38,7 @@ class C_imagesetting_testcase(aImagesetting.C_aImagsSetting, Verify_ImageSetting
             y=type(rust)
             print rust
             print y
+            self.snapshotpic(value=i)
             #print 'light_change_verify:'+rust
             if i == rust:
                 print 'light_change_OK'

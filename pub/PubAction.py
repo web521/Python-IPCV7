@@ -10,6 +10,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 import time as t
 import os
+import shutil
+from __builtin__ import str
 
 reload(sys)
 sys.setdefaultencoding( "utf-8" ) #存储中文日志是解决编码问题
@@ -25,8 +27,8 @@ class C_ipcaction(object):
     #def __init__ (self,driver):
     #   self.driver = driver
     def open_firefox(self):
-        #self.profileDir="C:/Users/Administrator/AppData/Roaming/Mozilla/Firefox/Profiles/ivjlfm23.default"
-        self.profileDir="C:/Users/admin/AppData/Roaming/Mozilla/Firefox/Profiles/d68dofkn.default"
+        self.profileDir="C:/Users/Administrator/AppData/Roaming/Mozilla/Firefox/Profiles/ivjlfm23.default"
+        #self.profileDir="C:/Users/admin/AppData/Roaming/Mozilla/Firefox/Profiles/d68dofkn.default"
         self.profile=webdriver.FirefoxProfile(self.profileDir)
         self.driver=webdriver.Firefox(self.profile)
         self.driver.maximize_window()
@@ -142,6 +144,7 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
         logwrite.write(self.now_url+'\n')
     """############     页面菜单               ####################################"""
     def MenuViewer(self):##进入实时浏览页面
+        self.driver.switch_to_frame('contentframe')
         self.clickID(*self.MenuViewer_loc)
         self.wait()
         self.logtext(*self.MenuViewer_loc)
@@ -157,7 +160,7 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
         self.clickID(*self.MenuConfig_loc)
         self.wait()
         self.logtext(*self.MenuConfig_loc)
-        self.driver.switch_to_frame('contentframe') ##检查这个元素是否在一个frame中
+        self.driver.switch_to_frame('contentframe') ##检查这个元素是否在一个frame中，放在对象操作之前
         self.wait()
     """############     一级菜单               ####################################"""
     def aVideoCamera(self):#进入摄像机主菜单
@@ -173,25 +176,43 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
         self.wait()
         self.logtext(*self.aBaseConfig_loc)
     """#############  抓拍  ############################"""
-    def snapshotpic(self):
-        self.MenuViewer()
-        print "1"
+    def picpath(self):  ##获取图片默认路径win7
+        self.picpathfile = linecache.getline(r'C:\Users\Public\Documents\IPCWeb\ipcweb.ini',13)
+        #print self.picpathfile
+        self.filedir = self.picpathfile
+        self.localpicpath = self.filedir[13:-1]
+        return self.localpicpath
+    def movetodir(self,):  ##获取图片移动到路径
+        #self.nowdir=os.path.split(os.getcwd())[0] 
+        self.nowdir = os.path.abspath('..\log')  ##获取绝度路径
+        return self.nowdir
+    def movefile(self,value):
+        now = datetime.datetime.now()
+        nowprint=now.strftime('%Y%m%d%H%M%S') ##当前时间
+        srcpath = self.picpath()
+        dstpath = self.movetodir()       
+        os.chdir(srcpath)
+        files = os.listdir(".")
+        for filename in files:
+            li = os.path.splitext(filename)
+            print li
+            if li[1] == ".jpg":
+                newname = str(nowprint)+"test"+value+li[1] 
+                print newname
+                os.rename(filename,newname)
+                srcfilename = self.picpath()+'\\'+newname
+                os.chdir(dstpath)
+                print self.movetodir()
+                shutil.move(srcfilename,self.movetodir())
+    def snapshotpic(self,value):  ##抓拍图片操作
+        self.value=value
         self.wait()
-        print "2"
+        self.MenuViewer()
+        self.wait()
         self.driver.switch_to_frame('contentframe')   ##无法识别和点击按钮时添加contentframe
         self.driver.find_element_by_id('capture').click()
         self.wait()
-    def picpath(self):
-        self.picpathfile = linecache.getline(r'C:\Users\Public\Documents\IPCWeb\ipcweb.ini',13)
-        print self.picpathfile
-        self.filedir = self.picpathfile
-        self.localpicpath = self.filedir[13:-1]
-        print self.localpicpath
-    def copyfile(self,):
-        self.nowdir=os.getcwd.abspath('..')
-        print self.nowdir
-
-
+        self.movefile(value)
 
 
 
@@ -213,7 +234,8 @@ if __name__ == '__main__':
     ip = '10.255.248.207'
     username = 'admin'
     password = 'admin123'
+    value="day"
     ipc=C_ipcpage()
     #ipc.loginIPC(ip, username, password)
     #ipc.snapshotpic()
-    ipc.picpath()
+    ipc.movefile(value)
