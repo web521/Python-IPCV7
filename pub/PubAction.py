@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #coding:utf-8
+#SVN 测试 吴卫彬
 from selenium import webdriver
 import sys
 import linecache
@@ -12,22 +13,39 @@ import time as t
 import os
 import shutil
 from __builtin__ import str
-
 reload(sys)
 sys.setdefaultencoding( "utf-8" ) #存储中文日志是解决编码问题
+
 now = datetime.datetime.now()
-nowprint=now.strftime('%Y-%m-%d  %H:%M:%S ') ##当前时间
-logwrite = open('..\log\pub_log.txt','a')
-logwrite.write(nowprint+'PubACtiond调用时间：'+'\n')
-print nowprint
+nowprint=now.strftime('%Y-%m-%d  %H:%M:%S ') ##当前时间 年月日 时分秒
+nowprint1=now.strftime('%Y-%m-%d')    ##当前时间 年月日
+nowpubdir = os.path.abspath('.')       ##获取pub目录绝对路径
+nowlogdir = os.path.abspath('..\log')       ##获取log目录绝对路径
+#os.chdir(nowlogdir)  ##切换log目录
+logdirname=nowprint1    ##按照年月日常见目录
+print logdirname
+try:
+    os.makedirs(nowlogdir+'\\'+logdirname)
+        #os.chdir(logdirname)  ##切换到新建的目录
+except BaseException as msg:
+    print '目录已存在'
+#finally:
+#nowlogdir1 = os.path.abspath(logdirname)   ##获取存储的日期目录
+datelogdir = nowlogdir+'\\'+nowprint1
+#nowlogdir2 = datelogdirname
+logname=datelogdir+'\\'+nowprint1+'.txt'   ##按照年月日创建日志文件
+
+logwrite = open(logname,'a')
+print logname
+print datelogdir,'.......',nowlogdir
+
+logwrite.write('<pub-PubACtiond调用时间>：'+nowprint+'\n')
 
 class C_ipcaction(object):
     def wait(self):
         t.sleep(1.5)
-    #def __init__ (self,driver):
-    #   self.driver = driver
     def open_firefox(self):
-        self.profileDir="C:/Users/Administrator/AppData/Roaming/Mozilla/Firefox/Profiles/ivjlfm23.default"
+        self.profileDir="C:/Users/Administrator/AppData/Roaming/Mozilla/Firefox/Profiles/ivjlfm23.default"  ##需要根据自己路径获取
         #self.profileDir="C:/Users/admin/AppData/Roaming/Mozilla/Firefox/Profiles/d68dofkn.default"
         self.profile=webdriver.FirefoxProfile(self.profileDir)
         self.driver=webdriver.Firefox(self.profile)
@@ -39,14 +57,23 @@ class C_ipcaction(object):
         self.driver.get(base_url)
         self.wait()
     def find_element(self,*loc):
-        return self.driver.find_element(*loc)
+        try:
+            return self.driver.find_element(*loc)
+        except BaseException as msg:
+            print msg
+
     def clickID(self,*loc):
-        return self.driver.find_element(*loc).click()    
+        #try:
+        return self.driver.find_element(*loc).click()
+        #except BaseException as meg:
+            #print meg
+ 
     def logtext(self,*loc):
         now = datetime.datetime.now()
-        nowprint=now.strftime('%Y-%m-%d  %H:%M:%S ') ##当前时间
+        nowprint=now.strftime('%Y-%m-%d  %H:%M:%S ')   ##当前时间
         self.label = self.driver.find_element(*loc).text
         logwrite.write(nowprint+":"+self.label+'\n')
+        #logwrite.close()
 
     
 class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
@@ -56,7 +83,7 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
     password_loc=(By.ID,"password")
     login_loc=(By.ID,"b_Login")
     ##"主页面"定位器
-    MenuViewer_loc=(By.ID,"MenuViewer") ##实时浏览
+    MenuViewer_loc=(By.ID,"MenuViewer")  ##实时浏览
     MenuPlayback_loc=(By.ID ,"MenuPlayback") ##录像回放
     MenuPic_loc=(By.ID,"MenuPic")  ##图片管理
     MenuConfig_loc=(By.ID,"MenuConfig") ##配置
@@ -74,7 +101,8 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
     aVideo_loc=(By.ID,"aVideo") ##视频
     aAudio_loc=(By.ID,"aAudio") ##音频
     ##“图像—图像效果”菜单下对象
-    lightnessh5_loc=(By.ID,"lightnessh5") ##图像t调节
+    divImagsSets_loc=(By.ID,"divImagsSets") 
+    lightnessh5_loc=(By.ID,"lightnessh5") ##图像调节
     lightness_value_loc=(By.ID,"lightness_value") ##图像亮度
     contrast_value_loc=(By.ID,"contrast_value")   ##图像对比度
     saturation_value_loc=(By.ID,"saturation_value")  ##图像饱和度
@@ -126,7 +154,7 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
     capture_loc=(By.ID,'capture')
 
 
-
+    ''' IPC登陆 '''
     def typeUsername_password(self,username,password):
         self.wait()
         self.find_element(*self.username_loc).send_keys(username)
@@ -142,27 +170,31 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
         self.driver.switch_to_alert()
         self.now_url=self.driver.current_url
         logwrite.write(self.now_url+'\n')
-    """############     页面菜单               ####################################"""
-    def MenuViewer(self):##进入实时浏览页面
-        self.driver.switch_to_frame('contentframe')
+    ''' 进入页面菜单 '''
+    def MenuViewer(self):   ##进入实时浏览页面
+        self.driver.switch_to_default_content()    ##跳出frame
         self.clickID(*self.MenuViewer_loc)
         self.wait()
         self.logtext(*self.MenuViewer_loc)
-    def MenuPlayback(self):##进入录像回放页面
+        self.driver.switch_to_frame('contentframe')  ##进入frame
+        self.wait()
+    def MenuPlayback(self):   ##进入录像回放页面
+        self.driver.switch_to_default_content()   
         self.clickID(*self.MenuPlayback_loc)
         self.wait()
         self.logtext(*self.MenuPlayback_loc)
-    def MenuPic(self):##进入图片管理页面
+    def MenuPic(self):   ##进入图片管理页面
         self.clickID(*self.MenuPic_loc)
         self.wait()
         self.logtext(*self.MenuPic_loc)
-    def MenuConfig(self):##进入配置页面
+    def MenuConfig(self):    ##进入配置页面
+        self.driver.switch_to_default_content()    ##跳出frame
         self.clickID(*self.MenuConfig_loc)
         self.wait()
         self.logtext(*self.MenuConfig_loc)
         self.driver.switch_to_frame('contentframe') ##检查这个元素是否在一个frame中，放在对象操作之前
         self.wait()
-    """############     一级菜单               ####################################"""
+    '''进入页面一级菜单  '''
     def aVideoCamera(self):#进入摄像机主菜单
         self.MenuConfig()
         self.wait()
@@ -175,44 +207,55 @@ class C_ipcpage(C_ipcaction):#页面基本操作，元素定位等
         self.clickID(*self.aBaseConfig_loc)
         self.wait()
         self.logtext(*self.aBaseConfig_loc)
-    """#############  抓拍  ############################"""
+    """进行图像抓拍验证并复制到日志目录，更改名称 """
     def picpath(self):  ##获取图片默认路径win7
         self.picpathfile = linecache.getline(r'C:\Users\Public\Documents\IPCWeb\ipcweb.ini',13)
         #print self.picpathfile
         self.filedir = self.picpathfile
         self.localpicpath = self.filedir[13:-1]
         return self.localpicpath
-    def movetodir(self,):  ##获取图片移动到路径
+    #def movetodir(self,):  ##获取图片移动到路径
         #self.nowdir=os.path.split(os.getcwd())[0] 
-        self.nowdir = os.path.abspath('..\log')  ##获取绝度路径
-        return self.nowdir
-    def movefile(self,value):
+        #self.nowdir = os.path.abspath('..\log')  ##获取绝度路径
+        #return self.nowdir
+    def movefile(self,case,value):
         now = datetime.datetime.now()
         nowprint=now.strftime('%Y%m%d%H%M%S') ##当前时间
-        srcpath = self.picpath()
-        dstpath = self.movetodir()       
-        os.chdir(srcpath)
-        files = os.listdir(".")
+        srcpath = self.picpath()     ##获取图片本地存储路径
+        #dstpath = self.movetodir()       
+        os.chdir(srcpath)      ##切换到图片存储路径
+        files = os.listdir(".")    ##遍历目录中图片信息
         for filename in files:
-            li = os.path.splitext(filename)
+            li = os.path.splitext(filename)   ##分离文件名与扩展名
             print li
             if li[1] == ".jpg":
-                newname = str(nowprint)+"test"+value+li[1] 
-                print newname
-                os.rename(filename,newname)
-                srcfilename = self.picpath()+'\\'+newname
-                os.chdir(dstpath)
-                print self.movetodir()
-                shutil.move(srcfilename,self.movetodir())
-    def snapshotpic(self,value):  ##抓拍图片操作
+                value=str(value)
+                newname = str(nowprint)+'-'+case+'___'+value+li[1]   ##拼接图片新名称
+                print newname  
+                self.wait()
+                try:
+                    os.rename(filename,newname)
+                except BaseException as msg:
+                    print msg
+                srcfilename = self.picpath()+'\\'+newname  ##拼接更改更改名称后图片完整路径
+                print "srcfilename:"+srcfilename
+                os.chdir(nowlogdir)
+                self.wait()
+                try:
+                    shutil.move(srcfilename,datelogdir)
+                except BaseException as msg:
+                    print msg
+        #return value
+    def snapshotpic(self,case,value):  ##抓拍图片操作
         self.value=value
-        self.wait()
+        self.case=case
         self.MenuViewer()
         self.wait()
-        self.driver.switch_to_frame('contentframe')   ##无法识别和点击按钮时添加contentframe
+        #self.driver.switch_to_frame('contentframe')   ##无法识别和点击按钮时添加contentframe
         self.driver.find_element_by_id('capture').click()
         self.wait()
-        self.movefile(value)
+        self.movefile(case,value)
+        self.driver.switch_to_default_content()
 
 
 
@@ -237,5 +280,5 @@ if __name__ == '__main__':
     value="day"
     ipc=C_ipcpage()
     #ipc.loginIPC(ip, username, password)
-    #ipc.snapshotpic()
-    ipc.movefile(value)
+    #ipc.MenuConfig()
+    #ipc.snapshotpic(value)

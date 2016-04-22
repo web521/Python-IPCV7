@@ -1,4 +1,9 @@
 eclipse.preferences.version=1
 encoding//IPCV7testing/main.py=utf-8
+encoding//IPCV7testing/main_test.py=utf-8
+encoding//IPCV7testing/test.py=utf-8
 encoding//pub/PubAction.py=utf-8
+encoding//pub/ReadExcelinfo.py=utf-8
+encoding//pub/aImagesetting.py=utf-8
 encoding//testcase/Testcase_ImageSetting.py=utf-8
+encoding//verifylib/Verify_ImageSetting.py=utf-8

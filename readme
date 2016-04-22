@@ -29,3 +29,8 @@ https://github.com/paramiko/paramiko/archive/master.zip
 2. paramiko  （进入根目录）
 
 输入下面的命令： python setup.py install
+
+
+
+
+

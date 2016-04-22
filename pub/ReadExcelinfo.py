@@ -2,9 +2,11 @@
 import xlrd
 import os
 import sys
-dirpwd = os.path.abspath('..')
-filename = r'%s\IPCV7testing\IPC_v7_message.xlsx' %dirpwd
-opensheet = xlrd.open_workbook(filename)
+dirpwd = os.path.abspath('..') 
+print dirpwd
+excelname = r'%s\IPCV7testing\IPC_v7_message.xlsx' %dirpwd
+print excelname
+opensheet = xlrd.open_workbook(excelname)
 ip_list = []
 user_list = []
 password_list = []
